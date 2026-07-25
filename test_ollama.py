@@ -8,3 +8,7 @@ dic={
         ],
     "stream": False
 }
+response = requests.post(url, json=dic)
+print(response.json())
+reply=response.json()["message"]["content"]
+print(reply)
