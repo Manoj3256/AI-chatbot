@@ -8,7 +8,7 @@ class chat_define(BaseModel):
 
 @app.post("/chat")
 def chat(request:chat_define):
-    url='http://localhost:11434/api/chat'
+    url="http://host.docker.internal:11434/api/chat"
     dic={
         "model": "llama3.2",
         "messages": [
