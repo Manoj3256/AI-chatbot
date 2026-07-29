@@ -4,7 +4,7 @@ A simple, local, general-purpose chatbot built as a hands-on project to learn ho
 
 ## What it does
 
-Send a text message to the API, get a reply back from a locally running LLM (Llama 3.2 via Ollama). No training or fine-tuning involved — this is pure inference (using a pre-trained model as-is).
+Send a text message to the API, get a reply back from a locally running LLM (Llama 3.2). No training or fine-tuning involved — this is pure inference (using a pre-trained model as-is).
 
 ## Tech Stack
 
