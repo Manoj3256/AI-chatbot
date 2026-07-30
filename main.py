@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import requests
+from fastapi.staticfiles import StaticFiles
 
 app=FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 class chat_define(BaseModel):
     message: str
 
