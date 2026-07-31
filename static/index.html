@@ -1,1 +1,36 @@
-<h1>Hello</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Chatbot</title>
+</head>
+<body>
+  <h1>Chat with Llama</h1>
+
+  <div id="chat-box" style="border:1px solid #6e5c5c; height:300px; overflow-y:auto; padding:10px;"></div>
+  <input type="text" id="user-input" placeholder="Type a message..." style="width:80%;">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    async function sendMessage() { 
+      const inputBox = document.getElementById("user-input");
+      const message = inputBox.value;
+ 
+      if (!message) return;
+ 
+      const chatBox = document.getElementById("chat-box");
+      chatBox.innerHTML += `<p><b>You:</b> ${message}</p>`;
+ 
+      inputBox.value = "";
+ 
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+      });
+ 
+      const data = await response.json();
+      chatBox.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
+    }
+  </script>
+</body>
+</html>

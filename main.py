@@ -2,11 +2,18 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import requests
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 app=FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
+
 class chat_define(BaseModel):
     message: str
+
+@app.get("/")
+def serve_chat_page():
+    return FileResponse("static/index.html")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.post("/chat")
 def chat(request:chat_define):
@@ -22,6 +29,6 @@ def chat(request:chat_define):
     reply=response.json()["message"]["content"]
     return {"reply":reply}
 
-@app.get("/")
+@app.get("/health")
 def check_running():
     return {"status":"Model is running"}
