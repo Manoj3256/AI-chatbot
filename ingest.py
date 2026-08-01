@@ -1,7 +1,6 @@
 import os
 import requests
 import chromadb
-
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 OLLAMA_URL = "http://localhost:11434/api/embeddings"
