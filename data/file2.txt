@@ -1,0 +1,13 @@
+Company Remote Work Policy (Fictional - For Testing)
+
+This document outlines the remote work policy for employees of Northwind Analytics, effective as of January 2025.
+
+Employees are permitted to work remotely up to three days per week, with Tuesdays and Thursdays designated as mandatory in-office days for all engineering and product teams. This is intended to preserve in-person collaboration for cross-functional planning meetings, which are held every Tuesday morning.
+
+Employees who wish to work fully remote must submit a Remote Work Exception Request to their manager and to HR, with justification such as relocation, caregiving responsibilities, or a documented medical need. Exception requests are reviewed quarterly by a panel consisting of the employee's manager, an HR representative, and a department director.
+
+Northwind Analytics provides a one-time home office stipend of $750 for new hires who will work remotely more than two days per week. This covers items such as desks, monitors, and ergonomic chairs. The stipend must be claimed within the first 90 days of employment.
+
+For employees working across time zones, meeting hours must overlap with the core collaboration window of 10 AM to 3 PM Pacific Time. Any team whose members span more than a 4-hour time zone difference must nominate an "async lead" responsible for ensuring decisions are documented in writing for those who cannot attend live meetings.
+
+Violations of the in-office requirement without an approved exception are addressed first through a conversation with the employee's manager, and repeated violations may be escalated to HR.
