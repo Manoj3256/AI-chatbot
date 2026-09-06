@@ -1,6 +1,10 @@
 import json
 import numpy as np
 import faiss
+import pickle
+from rank_bm25 import BM25Okapi
+import string
+from sklearn.feature_extraction import _stop_words
 from sentence_transformers import SentenceTransformer
 
 text = """
@@ -29,3 +33,19 @@ faiss.write_index(index, "artifacts/faiss.index")
 with open("artifacts/texts.json", "w") as f:
     json.dump(texts, f)
 print(f"Saved index with {index.ntotal} vectors and {len(texts)} texts.")
+
+def bm25_tokenizer(text):
+    tokenized_doc = []
+    for token in text.lower().split():
+        token = token.strip(string.punctuation)
+        if len(token) > 0 and token not in _stop_words.ENGLISH_STOP_WORDS:
+            tokenized_doc.append(token)
+    return tokenized_doc
+
+tokenized_corpus = [bm25_tokenizer(passage) for passage in texts]
+bm25 = BM25Okapi(tokenized_corpus)
+
+with open("artifacts/bm25.pkl", "wb") as f:
+    pickle.dump(bm25, f)
+
+print(f"Saved BM25 index over {len(tokenized_corpus)} documents.")
