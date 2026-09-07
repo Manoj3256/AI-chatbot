@@ -6,6 +6,8 @@ from rank_bm25 import BM25Okapi
 import string
 from sklearn.feature_extraction import _stop_words
 from sentence_transformers import SentenceTransformer
+from urllib.request import urlopen
+from PIL import Image
 
 text = """
 Interstellar is a 2014 epic science fiction film co-written, directed, and produced by Christopher Nolan.
@@ -49,3 +51,29 @@ with open("artifacts/bm25.pkl", "wb") as f:
     pickle.dump(bm25, f)
 
 print(f"Saved BM25 index over {len(tokenized_corpus)} documents.")
+
+
+clip_model = SentenceTransformer("clip-ViT-B-32", device="cpu")
+
+image_urls = {
+    "puppy": "https://raw.githubusercontent.com/HandsOnLLM/Hands-On-Large-Language-Models/main/chapter09/images/puppy.png",
+    "car": "https://raw.githubusercontent.com/HandsOnLLM/Hands-On-Large-Language-Models/main/chapter09/images/car.png",
+}
+image_names = list(image_urls.keys())
+images = [Image.open(urlopen(url)).convert("RGB") for url in image_urls.values()]
+
+image_embeds = clip_model.encode(images, convert_to_numpy=True)
+image_dim = image_embeds.shape[1]
+image_index = faiss.IndexFlatL2(image_dim)
+image_index.add(np.float32(image_embeds))
+
+faiss.write_index(image_index, "artifacts/image_faiss.index")
+with open("artifacts/image_names.json", "w") as f:
+    json.dump(image_names, f)
+
+import os as _os
+_os.makedirs("artifacts/images", exist_ok=True)
+for name, img in zip(image_names, images):
+    img.save(f"artifacts/images/{name}.png")
+
+print(f"Saved image index with {image_index.ntotal} images.")
