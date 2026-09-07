@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
-
+import cohere
 load_dotenv()
 
 llm = ChatGroq(
@@ -10,7 +10,7 @@ llm = ChatGroq(
     max_tokens=1024,
     reasoning_effort="low",
 )
-
+co = cohere.Client(os.getenv("COHERE_API_KEY"))
 def build_gpt(messages):
     prompt = "<|begin_of_text|>"
     for m in messages:
@@ -25,4 +25,4 @@ def generate(messages, max_new_tokens=200, do_sample=True, temperature=1, top_p=
         max_tokens=max_new_tokens,
         temperature=temperature if do_sample else 0.0,
         top_p=top_p,
-    )
+)
