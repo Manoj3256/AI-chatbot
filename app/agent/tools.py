@@ -21,7 +21,11 @@ def rag_tool_func(query: str) -> str:
 
 rag_tool = Tool(
     name="DocumentQA",
-    description="Answers questions using the indexed document corpus. Use this for factual questions about the content in the knowledge base.",
+    description=(
+        "Searches a knowledge base about the movie Interstellar (plot, cast, "
+        "director, production, box office, awards). ALWAYS try this tool first "
+        "for any factual question before using web search."
+    ),
     func=rag_tool_func,
 )
 
@@ -36,8 +40,12 @@ image_tool = Tool(
 )
 
 ddg_search = DuckDuckGoSearchResults()
+def ddg_search_truncated(query: str) -> str:
+    raw = ddg_search.run(query)
+    return raw[:800]
+
 search_tool = Tool(
     name="duckduck",
-    description="A web search engine. Use this as a search engine for general queries not covered by the document knowledge base.",
-    func=ddg_search.run,
+    description="A web search engine. Use this only for questions the document knowledge base can't answer.",
+    func=ddg_search_truncated,
 )

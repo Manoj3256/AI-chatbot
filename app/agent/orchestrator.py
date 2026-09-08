@@ -25,11 +25,11 @@ prompt = PromptTemplate(
     template=react_template,
     input_variables=["tools", "tool_names", "input", "agent_scratchpad", "chat_history"],
 )
-tools = [search_tool, calc_tool, rag_tool, image_tool]
+tools = [rag_tool, calc_tool, image_tool, search_tool]
 agent_llm = ChatGroq(
     model="qwen/qwen3.6-27b",
     temperature=0,
-    max_tokens=512,
+    max_tokens=768,
     reasoning_format="hidden",
 )
 agent = create_react_agent(agent_llm, tools, prompt)
@@ -46,7 +46,7 @@ def run_agent(session_id: str, user_input: str) -> str:
         memory=memory,
         verbose=True,
         handle_parsing_errors="Your response didn't follow the required format. You must respond with either 'Action:' and 'Action Input:' on separate lines, or 'Final Answer:' if you have enough information. Try again.",
-        max_iterations=3,
+        max_iterations=4,
         max_execution_time=60,
     )
     result = agent_executor.invoke({"input": user_input})
