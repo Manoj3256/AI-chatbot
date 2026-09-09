@@ -22,13 +22,12 @@ def rag_tool_func(query: str) -> str:
 rag_tool = Tool(
     name="DocumentQA",
     description=(
-        "Searches a knowledge base about the movie Interstellar (plot, cast, "
-        "director, production, box office, awards). ALWAYS try this tool first "
-        "for any factual question before using web search."
-    ),
+        "Searches a knowledge base containing information specifically about "
+        "the movie Interstellar (its plot, cast, director, production, box "
+        "office, and awards). Use ONLY for questions about the movie "
+        "Interstellar. Do NOT use for math, general knowledge, or unrelated topics."),
     func=rag_tool_func,
 )
-
 def image_search_func(query: str) -> str:
     results = search_images(query)
     return f"Found {len(results)} matching image(s) for '{query}'."
