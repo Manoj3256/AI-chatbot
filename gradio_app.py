@@ -3,8 +3,7 @@ import requests
 import gradio as gr
 
 API_URL = "http://localhost:8000/chat"
-session_id = str(uuid.uuid4())  # one fixed session per app run
-
+session_id = str(uuid.uuid4())  
 def chat_with_agent(message, history):
     response = requests.post(
         API_URL,
