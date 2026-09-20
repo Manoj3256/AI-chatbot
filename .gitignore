@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+venv/
+finetuned_minilm
+venv
+venv_test
+ex.env
+.env
